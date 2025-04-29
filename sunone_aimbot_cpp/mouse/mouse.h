@@ -37,7 +37,7 @@ private:
     std::atomic<bool> target_detected{ false };
     std::atomic<bool> mouse_pressed{ false };
 
-    SerialConnection* serial;
+    DirectHIDConnection* directHID;
     KmboxConnection* kmbox;
     GhubMouse* gHub;
 
