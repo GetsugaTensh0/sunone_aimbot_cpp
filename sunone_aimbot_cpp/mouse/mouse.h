@@ -8,7 +8,7 @@
 #include <utility>
 
 #include "AimbotTarget.h"
-#include "SerialConnection.h"
+#include "DirectHIDConnection.h"
 #include "KmboxConnection.h"
 #include "ghub.h"
 
