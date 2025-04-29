@@ -12,7 +12,7 @@
 
 #include "mouse.h"
 #include "capture.h"
-#include "SerialConnection.h"
+#include "DirectHIDConnection.h"
 #include "sunone_aimbot_cpp.h"
 #include "ghub.h"
 
@@ -27,7 +27,7 @@ MouseThread::MouseThread(
     double predictionInterval,
     bool auto_shoot,
     float bScope_multiplier,
-    SerialConnection* serialConnection,
+    DirectHIDConnection* directHIDConnection,
     GhubMouse* gHubMouse,
     KmboxConnection* kmboxConnection
 )
@@ -45,7 +45,7 @@ MouseThread::MouseThread(
     center_y(resolution / 2.0),
     auto_shoot(auto_shoot),
     bScope_multiplier(bScope_multiplier),
-    serial(serialConnection),
+    directHID(directHIDConnection),
     kmbox(kmboxConnection),
     gHub(gHubMouse)
 {
@@ -124,7 +124,7 @@ void MouseThread::sendMovementToDriver(int move_x, int move_y)
     }
     else if (this->serial)
     {
-        this->serial->move(move_x, move_y);
+        this->directHID->move(move_x, move_y);
     }
     else if (this->gHub)
     {
@@ -213,7 +213,7 @@ void MouseThread::moveMouse(const AimbotTarget& target)
     }
     else if (serial)
     {
-        serial->move(move_x, move_y);
+        directHID->move(move_x, move_y);
     }
     else if (gHub)
     {
@@ -291,7 +291,7 @@ void MouseThread::pressMouse(const AimbotTarget& target)
         }
         else if (serial)
         {
-            serial->press();
+            directHID->press();
         }
         else if (gHub)
         {
@@ -314,7 +314,7 @@ void MouseThread::pressMouse(const AimbotTarget& target)
         }
         else if (serial)
         {
-            serial->release();
+            directHID->release();
         }
         else if (gHub)
         {
@@ -343,7 +343,7 @@ void MouseThread::releaseMouse()
         }
         else if (serial)
         {
-            serial->release();
+            directHID->release();
         }
         else if (gHub)
         {
@@ -436,10 +436,10 @@ std::vector<std::pair<double, double>> MouseThread::getFuturePositions()
     return futurePositions;
 }
 
-void MouseThread::setSerialConnection(SerialConnection* newSerial)
+void MouseThread::setDirectHIDConnection(DirectHIDConnection* newHID) 
 {
     std::lock_guard<std::mutex> lock(input_method_mutex);
-    serial = newSerial;
+    directHID = newHID;
 }
 
 void MouseThread::setKmboxConnection(KmboxConnection* newKmbox)
