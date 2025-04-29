@@ -24,6 +24,7 @@
   <ItemGroup>
     <ClCompile Include="capture\capture.cpp" />
     <ClCompile Include="capture\duplication_api_capture.cpp" />
+    <ClCompile Include="mouse\DirectHIDConnection.cpp" />
     <ClCompile Include="capture\optical_flow.cpp" />
     <ClCompile Include="capture\virtual_camera.cpp" />
     <ClCompile Include="capture\winrt_capture.cpp" />
