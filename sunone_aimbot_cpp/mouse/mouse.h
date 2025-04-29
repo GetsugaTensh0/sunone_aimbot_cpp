@@ -85,7 +85,7 @@ public:
     void clearFuturePositions();
     std::vector<std::pair<double, double>> getFuturePositions();
 
-    void setSerialConnection(SerialConnection* newSerial);
+    void setDirectHIDConnection(DirectHIDConnection* newHID);
     void setKmboxConnection(KmboxConnection* newKmbox);
     void setGHubMouse(GhubMouse* newGHub);
 
